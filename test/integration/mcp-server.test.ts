@@ -20,4 +20,10 @@ describe('createMcpServer', () => {
     expect(run).toHaveBeenCalledWith(['open', 'https://example.com'], 'default');
     expect(result.ok).toBe(true);
   });
+
+  it('rejects unknown tool names with a clear error', async () => {
+    const server = createMcpServer({ run: vi.fn() as never });
+
+    await expect(server.invoke('bogus', {})).rejects.toThrow('Unknown MCP tool: bogus');
+  });
 });

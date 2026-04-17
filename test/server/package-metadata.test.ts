@@ -12,7 +12,7 @@ describe('package metadata', () => {
 
     expect(pkg.name).toBe('agent-browser-mcp');
     expect(pkg.bin).toEqual({
-      'agent-browser-mcp': 'dist/cli/index.js',
+      'agent-browser-mcp': 'dist/src/cli/index.js',
     });
     expect(pkg.scripts.build).toBe('tsc -p tsconfig.json');
     expect(pkg.scripts.test).toBe('vitest run');

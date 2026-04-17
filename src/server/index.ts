@@ -11,8 +11,11 @@ export function createMcpServer(options: ServerOptions = {}) {
 
   return {
     tools,
-    async invoke(name: keyof typeof tools, input: unknown) {
-      const handler = tools[name];
+    async invoke(name: string, input: unknown) {
+      const handler = tools[name as keyof typeof tools];
+      if (typeof handler !== 'function') {
+        throw new Error(`Unknown MCP tool: ${name}`);
+      }
       return handler(input as never);
     },
   };

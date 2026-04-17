@@ -4,7 +4,7 @@
   "description": "MCP server wrapper for the local agent-browser CLI with Codex bootstrap support.",
   "type": "module",
   "bin": {
-    "agent-browser-mcp": "dist/cli/index.js"
+    "agent-browser-mcp": "dist/src/cli/index.js"
   },
   "files": [
     "dist",
