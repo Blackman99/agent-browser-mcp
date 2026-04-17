@@ -13,6 +13,36 @@ type InitCodexOptions = {
   hasAgentBrowser?: () => Promise<boolean>;
 };
 
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function getPluginName(entry: unknown): string | undefined {
+  if (!isObject(entry)) {
+    return undefined;
+  }
+
+  return typeof entry.name === 'string' ? entry.name : undefined;
+}
+
+function buildMarketplaceJson(existing: unknown) {
+  const template = renderMarketplaceJson();
+
+  if (!isObject(existing)) {
+    return template;
+  }
+
+  const plugins = Array.isArray(existing.plugins)
+    ? existing.plugins.filter((entry) => getPluginName(entry) !== 'agent-browser')
+    : [];
+
+  return {
+    ...template,
+    ...existing,
+    plugins: [...plugins, template.plugins[0]],
+  };
+}
+
 export async function initCodex(options: InitCodexOptions = {}) {
   const homeDir = options.homeDir ?? homedir();
   const hasAgentBrowser =
@@ -44,14 +74,18 @@ export async function initCodex(options: InitCodexOptions = {}) {
 
   let marketplace = renderMarketplaceJson();
   try {
-    marketplace = JSON.parse(await readFile(marketplacePath, 'utf8'));
-    marketplace.plugins = marketplace.plugins.filter(
-      (entry: { name: string }) => entry.name !== 'agent-browser',
-    );
-    marketplace.plugins.push(renderMarketplaceJson().plugins[0]);
+    marketplace = buildMarketplaceJson(JSON.parse(await readFile(marketplacePath, 'utf8')));
   } catch {
     // Use the default template when no marketplace file exists yet.
   }
 
   await writeFile(marketplacePath, `${JSON.stringify(marketplace, null, 2)}\n`);
+
+  console.log(
+    [
+      'Codex bootstrap is ready.',
+      `Plugin files were written to ${join(homeDir, 'plugins', 'agent-browser')}.`,
+      'Restart Codex or start a new session so the new plugin is loaded.',
+    ].join(' '),
+  );
 }
