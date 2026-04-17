@@ -30,7 +30,9 @@ export class SessionStore {
 
     if (tab.active) {
       for (const existing of session.tabs.values()) {
-        existing.active = false;
+        if (existing !== tab) {
+          existing.active = false;
+        }
       }
     }
 
