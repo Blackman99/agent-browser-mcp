@@ -1,4 +1,5 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { execa } from 'execa';
@@ -43,6 +44,48 @@ function buildMarketplaceJson(existing: unknown) {
   };
 }
 
+async function writeJsonAtomic(path: string, value: unknown) {
+  const tmpPath = `${path}.${randomUUID()}.tmp`;
+  try {
+    await writeFile(tmpPath, `${JSON.stringify(value, null, 2)}\n`);
+    await rename(tmpPath, path);
+  } catch (error) {
+    await rm(tmpPath, { force: true });
+    throw error;
+  }
+}
+
+async function loadMarketplaceJson(path: string) {
+  try {
+    const raw = await readFile(path, 'utf8');
+    const parsed = JSON.parse(raw);
+
+    if (!isObject(parsed)) {
+      throw new Error('unsupported marketplace shape');
+    }
+
+    if (!Array.isArray(parsed.plugins)) {
+      throw new Error('unsupported marketplace shape');
+    }
+
+    return parsed;
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      return undefined;
+    }
+
+    if (error instanceof SyntaxError) {
+      throw new Error(`unable to read existing marketplace at ${path}: invalid JSON`);
+    }
+
+    if (error instanceof Error && error.message === 'unsupported marketplace shape') {
+      throw new Error(`unable to read existing marketplace at ${path}: unsupported marketplace shape`);
+    }
+
+    throw error;
+  }
+}
+
 export async function initCodex(options: InitCodexOptions = {}) {
   const homeDir = options.homeDir ?? homedir();
   const hasAgentBrowser =
@@ -63,23 +106,15 @@ export async function initCodex(options: InitCodexOptions = {}) {
   await mkdir(pluginManifestDir, { recursive: true });
   await mkdir(join(homeDir, '.agents', 'plugins'), { recursive: true });
 
-  await writeFile(
-    join(pluginManifestDir, 'plugin.json'),
-    `${JSON.stringify(renderPluginJson(), null, 2)}\n`,
-  );
-  await writeFile(
-    join(pluginRoot, '.mcp.json'),
-    `${JSON.stringify(renderMcpJson(), null, 2)}\n`,
-  );
+  await writeJsonAtomic(join(pluginManifestDir, 'plugin.json'), renderPluginJson());
+  await writeJsonAtomic(join(pluginRoot, '.mcp.json'), renderMcpJson());
 
-  let marketplace = renderMarketplaceJson();
-  try {
-    marketplace = buildMarketplaceJson(JSON.parse(await readFile(marketplacePath, 'utf8')));
-  } catch {
-    // Use the default template when no marketplace file exists yet.
-  }
+  const existingMarketplace = await loadMarketplaceJson(marketplacePath);
+  const marketplace = existingMarketplace
+    ? buildMarketplaceJson(existingMarketplace)
+    : renderMarketplaceJson();
 
-  await writeFile(marketplacePath, `${JSON.stringify(marketplace, null, 2)}\n`);
+  await writeJsonAtomic(marketplacePath, marketplace);
 
   console.log(
     [
