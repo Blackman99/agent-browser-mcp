@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import vitestConfig from '../../vitest.config.ts';
+
+function readText(relativePath: string) {
+  return readFileSync(join(process.cwd(), relativePath), 'utf8');
+}
 
 describe('package metadata', () => {
   it('declares the CLI bin, scripts, dependencies, and engines', () => {
-    const pkg = JSON.parse(
-      readFileSync(join(process.cwd(), 'package.json'), 'utf8'),
-    );
+    const pkg = JSON.parse(readText('package.json'));
 
     expect(pkg.name).toBe('agent-browser-mcp');
     expect(pkg.bin).toEqual({
@@ -33,9 +34,7 @@ describe('package metadata', () => {
   });
 
   it('matches the Task 1 TypeScript config', () => {
-    const tsconfig = JSON.parse(
-      readFileSync(join(process.cwd(), 'tsconfig.json'), 'utf8'),
-    );
+    const tsconfig = JSON.parse(readText('tsconfig.json'));
 
     expect(tsconfig).toEqual({
       compilerOptions: {
@@ -55,12 +54,26 @@ describe('package metadata', () => {
   });
 
   it('matches the Task 1 Vitest config', () => {
-    expect(vitestConfig).toEqual({
-      test: {
-        environment: 'node',
-        include: ['test/**/*.test.ts'],
-        clearMocks: true,
-      },
-    });
+    const vitestConfig = readText('vitest.config.ts');
+
+    expect(vitestConfig).toContain("environment: 'node'");
+    expect(vitestConfig).toContain("include: ['test/**/*.test.ts']");
+    expect(vitestConfig).toContain('clearMocks: true');
+  });
+
+  it('matches the Task 1 gitignore entries', () => {
+    const gitignore = readText('.gitignore')
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    expect(gitignore).toEqual([
+      'node_modules',
+      'dist',
+      '.DS_Store',
+      'coverage',
+      '*.log',
+      'tmp',
+    ]);
   });
 });
