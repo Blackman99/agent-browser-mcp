@@ -1,5 +1,6 @@
 import { inspect } from 'node:util';
 import { pathToFileURL } from 'node:url';
+import { initCodex } from './init-codex.js';
 import { serve } from '../server/index.js';
 
 export function formatThrownValue(error: unknown) {
@@ -23,7 +24,8 @@ async function main() {
   }
 
   if (command === 'init-codex') {
-    throw new Error('init-codex is not implemented yet');
+    await initCodex();
+    return;
   }
 
   throw new Error(`Unknown command: ${command}`);
