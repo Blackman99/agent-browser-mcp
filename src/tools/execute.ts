@@ -17,7 +17,7 @@ export type RunAgentBrowser = (args: string[], session?: string) => Promise<Exec
 
 export function createAgentBrowserRunner(binary = 'agent-browser'): RunAgentBrowser {
   return async (args, session = 'default') => {
-    const finalArgs = ['session', session, ...args];
+    const finalArgs = ['--session', session, ...args];
     const result = await execa(binary, finalArgs, { reject: false });
 
     if (result.exitCode !== 0) {
