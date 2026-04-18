@@ -34,24 +34,49 @@ describe('README', () => {
   });
 
   it('includes the Codex bootstrap command and restart guidance', () => {
-    expect(readme).toContain('npx agent-browser-mcp init-codex');
-    expect(readme).toMatch(/Restart Codex|new session/);
+    const quickStartSection = getSection('## Quick Start for Codex');
+
+    expect(quickStartSection).toContain('npx agent-browser-mcp init-codex');
+    expect(quickStartSection).toContain('Restart Codex or open a new session');
   });
 
   it('locks down the approved README wording and scope', () => {
     expect(readme).toContain('Prerequisite: `agent-browser` must already be installed locally.');
-    expect(readme).toContain('codex/plugin/');
     expect(readme).toContain(
       'This package currently exposes a focused subset of `agent-browser` commands:',
     );
-    expect(readme).toContain('subset of the upstream `agent-browser` CLI, not the full surface.');
-    expect(readme).not.toMatch(/full parity|full-featured|complete coverage/i);
+    expect(readme).toContain('- Navigation: `open`, `back`, `forward`, `reload`');
+    expect(readme).toContain('- Interaction: `click`, `fill`, `type`');
+    expect(readme).toContain(
+      '- Read and page state: `get_title`, `get_text`, `get_html`, `snapshot`, `screenshot`, `wait`',
+    );
+    expect(readme).toContain('- Tabs: `tab_list`, `tab_new`, `tab_close`');
+    expect(readme).toContain('- Runtime: `eval`');
+    expect(readme).toContain('- Storage and network: `cookies_get`, `network_requests`');
+    expect(readme).toContain(
+      '- Sessions and raw passthrough: `session_current`, `session_list`, `session_close`, `run_raw_command`',
+    );
+
+    const manualSetupSection = getSection('## Manual Setup');
+    expect(manualSetupSection).toContain(
+      'If you want to wire the plugin in manually, the local Codex templates live under `codex/plugin/`.',
+    );
+
+    const limitationsSection = getSection('## Limitations');
+    expect(limitationsSection).toContain(
+      'This package currently exposes a subset of the upstream `agent-browser` CLI, not the full surface.',
+    );
+    expect(limitationsSection).toContain('Some tool families are intentionally narrow right now.');
+    expect(limitationsSection).toContain(
+      'Broader coverage may be added over time, but the current surface should be treated as evolving.',
+    );
+    expect(limitationsSection).not.toMatch(/full parity|full-featured|complete coverage/i);
 
     const developmentSection = getSection('## Development');
     const developmentCommands = developmentSection.match(/`[^`]+`/g) ?? [];
 
+    expect(developmentSection).toContain('For local verification:');
     expect(developmentCommands).toEqual(['`npm test`', '`npm run typecheck`']);
     expect(developmentSection.match(/^\s*-\s+/gm) ?? []).toHaveLength(2);
-    expect(developmentSection).toContain('For local verification:');
   });
 });
