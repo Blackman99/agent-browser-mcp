@@ -74,6 +74,7 @@ describe('package metadata', () => {
       'coverage',
       '*.log',
       'tmp',
+      'docs/superpowers/plans/',
     ]);
   });
 });
