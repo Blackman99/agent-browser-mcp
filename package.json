@@ -15,7 +15,7 @@
     "agent-browser-mcp-codex": "dist/src/cli/index.js"
   },
   "files": [
-    "dist",
+    "dist/src",
     "codex",
     "README.md",
     "CHANGELOG.md",

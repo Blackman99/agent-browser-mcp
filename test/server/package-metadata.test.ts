@@ -22,6 +22,13 @@ describe('package metadata', () => {
     expect(pkg.bin).toEqual({
       'agent-browser-mcp-codex': 'dist/src/cli/index.js',
     });
+    expect(pkg.files).toEqual([
+      'dist/src',
+      'codex',
+      'README.md',
+      'CHANGELOG.md',
+      'LICENSE',
+    ]);
     expect(pkg.scripts.build).toBe('tsc -p tsconfig.json');
     expect(pkg.scripts.test).toBe('vitest run');
     expect(pkg.scripts.dev).toBe('tsx src/cli/index.ts serve');
