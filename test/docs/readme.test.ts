@@ -21,14 +21,16 @@ describe('README', () => {
 
   it('uses the approved Codex-first section order', () => {
     const quickStartIndex = readme.indexOf('## Quick Start for Codex');
-    const whatYouGetIndex = readme.indexOf('## What You Get');
+    const upstreamIndex = readme.indexOf('## What agent-browser already provides');
+    const wrapperIndex = readme.indexOf('## What this MCP wrapper currently exposes');
     const manualSetupIndex = readme.indexOf('## Manual Setup');
     const limitationsIndex = readme.indexOf('## Limitations');
     const developmentIndex = readme.indexOf('## Development');
 
     expect(quickStartIndex).toBeGreaterThan(-1);
-    expect(whatYouGetIndex).toBeGreaterThan(quickStartIndex);
-    expect(manualSetupIndex).toBeGreaterThan(whatYouGetIndex);
+    expect(upstreamIndex).toBeGreaterThan(quickStartIndex);
+    expect(wrapperIndex).toBeGreaterThan(upstreamIndex);
+    expect(manualSetupIndex).toBeGreaterThan(wrapperIndex);
     expect(limitationsIndex).toBeGreaterThan(manualSetupIndex);
     expect(developmentIndex).toBeGreaterThan(limitationsIndex);
   });
@@ -44,18 +46,36 @@ describe('README', () => {
     expect(readme).toContain(
       'Prerequisite: [`agent-browser`](https://github.com/vercel-labs/agent-browser) must already be installed locally.',
     );
-    expect(readme).toContain(
+    const upstreamSection = getSection('## What agent-browser already provides');
+    expect(upstreamSection).toContain(
+      '[`agent-browser`](https://github.com/vercel-labs/agent-browser) already provides a broad browser automation surface, including:',
+    );
+    expect(upstreamSection).toContain('- Navigation and interaction');
+    expect(upstreamSection).toContain(
+      '- Keyboard, mouse, upload, download, and scrolling controls',
+    );
+    expect(upstreamSection).toContain('- Page inspection and info retrieval');
+    expect(upstreamSection).toContain(
+      '- Tabs, sessions, storage, and network operations',
+    );
+    expect(upstreamSection).toContain('- Debugging, diffing, recording, and streaming');
+    expect(upstreamSection).toContain('- Auth, chat, dashboard, and setup commands');
+
+    const wrapperSection = getSection('## What this MCP wrapper currently exposes');
+    expect(wrapperSection).toContain(
       'This package currently exposes a focused subset of [`agent-browser`](https://github.com/vercel-labs/agent-browser) commands:',
     );
-    expect(readme).toContain('- Navigation: `open`, `back`, `forward`, `reload`');
-    expect(readme).toContain('- Interaction: `click`, `fill`, `type`');
-    expect(readme).toContain(
+    expect(wrapperSection).toContain('- Navigation: `open`, `back`, `forward`, `reload`');
+    expect(wrapperSection).toContain('- Interaction: `click`, `fill`, `type`');
+    expect(wrapperSection).toContain(
       '- Read and page state: `get_title`, `get_text`, `get_html`, `snapshot`, `screenshot`, `wait`',
     );
-    expect(readme).toContain('- Tabs: `tab_list`, `tab_new`, `tab_close`');
-    expect(readme).toContain('- Runtime: `eval`');
-    expect(readme).toContain('- Storage and network: `cookies_get`, `network_requests`');
-    expect(readme).toContain(
+    expect(wrapperSection).toContain('- Tabs: `tab_list`, `tab_new`, `tab_close`');
+    expect(wrapperSection).toContain('- Runtime: `eval`');
+    expect(wrapperSection).toContain(
+      '- Storage and network: `cookies_get`, `network_requests`',
+    );
+    expect(wrapperSection).toContain(
       '- Sessions and raw passthrough: `session_current`, `session_list`, `session_close`, `run_raw_command`',
     );
 

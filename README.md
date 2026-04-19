@@ -9,7 +9,18 @@ Prerequisite: [`agent-browser`](https://github.com/vercel-labs/agent-browser) mu
 1. Run `npx agent-browser-mcp init-codex`
 2. Restart Codex or open a new session
 
-## What You Get
+## What agent-browser already provides
+
+[`agent-browser`](https://github.com/vercel-labs/agent-browser) already provides a broad browser automation surface, including:
+
+- Navigation and interaction
+- Keyboard, mouse, upload, download, and scrolling controls
+- Page inspection and info retrieval
+- Tabs, sessions, storage, and network operations
+- Debugging, diffing, recording, and streaming
+- Auth, chat, dashboard, and setup commands
+
+## What this MCP wrapper currently exposes
 
 This package currently exposes a focused subset of [`agent-browser`](https://github.com/vercel-labs/agent-browser) commands:
 
