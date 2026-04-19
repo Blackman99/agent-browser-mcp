@@ -1,10 +1,18 @@
 {
-  "name": "agent-browser-mcp",
+  "name": "agent-browser-mcp-codex",
   "version": "0.1.0",
   "description": "MCP server wrapper for the local agent-browser CLI with Codex bootstrap support.",
+  "homepage": "https://github.com/Blackman99/agent-browser-mcp",
+  "bugs": {
+    "url": "https://github.com/Blackman99/agent-browser-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blackman99/agent-browser-mcp.git"
+  },
   "type": "module",
   "bin": {
-    "agent-browser-mcp": "dist/src/cli/index.js"
+    "agent-browser-mcp-codex": "dist/src/cli/index.js"
   },
   "files": [
     "dist",
@@ -16,9 +24,14 @@
   "engines": {
     "node": ">=20"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx src/cli/index.ts serve",
+    "prepublishOnly": "npm run release:check",
+    "release:check": "npm run build && npm run typecheck && npm test && npm pack --dry-run",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -p tsconfig.json --noEmit"

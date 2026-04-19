@@ -8,7 +8,7 @@ export function renderPluginJson() {
       email: 'opensource@example.com',
       url: 'https://github.com/zhaodongsheng',
     },
-    homepage: 'https://github.com/zhaodongsheng/agent-browser-mcp',
+    homepage: 'https://github.com/Blackman99/agent-browser-mcp',
     license: 'MIT',
     mcpServers: './.mcp.json',
     interface: {
@@ -18,9 +18,9 @@ export function renderPluginJson() {
       developerName: 'zhaodongsheng',
       category: 'Productivity',
       capabilities: ['Interactive', 'Write'],
-      websiteURL: 'https://github.com/zhaodongsheng/agent-browser-mcp',
-      privacyPolicyURL: 'https://github.com/zhaodongsheng/agent-browser-mcp',
-      termsOfServiceURL: 'https://github.com/zhaodongsheng/agent-browser-mcp',
+      websiteURL: 'https://github.com/Blackman99/agent-browser-mcp',
+      privacyPolicyURL: 'https://github.com/Blackman99/agent-browser-mcp',
+      termsOfServiceURL: 'https://github.com/Blackman99/agent-browser-mcp',
       defaultPrompt: [
         'Open a page and read its title',
         'Inspect a page and extract text',
@@ -37,7 +37,7 @@ export function renderMcpJson() {
     mcpServers: {
       'agent-browser': {
         command: 'npx',
-        args: ['-y', 'agent-browser-mcp'],
+        args: ['-y', 'agent-browser-mcp-codex'],
       },
     },
   };

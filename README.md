@@ -1,4 +1,4 @@
-# agent-browser-mcp
+# agent-browser-mcp-codex
 
 Expose local [`agent-browser`](https://github.com/vercel-labs/agent-browser) capabilities as MCP tools and bootstrap Codex integration quickly.
 
@@ -6,7 +6,7 @@ Expose local [`agent-browser`](https://github.com/vercel-labs/agent-browser) cap
 
 Prerequisite: [`agent-browser`](https://github.com/vercel-labs/agent-browser) must already be installed locally.
 
-1. Run `npx agent-browser-mcp init-codex`
+1. Run `npx agent-browser-mcp-codex init-codex`
 2. Restart Codex or open a new session
 
 ## What agent-browser already provides
@@ -48,3 +48,8 @@ For local verification:
 
 - `npm test`
 - `npm run typecheck`
+
+## Release
+
+- Configure an `NPM_TOKEN` secret in the GitHub repository before the first automated publish.
+- Create and publish a GitHub Release to trigger npm publication for the current package version.

@@ -28,7 +28,7 @@ describe('initCodex', () => {
   });
 
   it('creates plugin and marketplace files with npx launch config', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
 
     await initCodex({
       homeDir: home,
@@ -43,7 +43,7 @@ describe('initCodex', () => {
     );
 
     expect(mcp.mcpServers['agent-browser'].command).toBe('npx');
-    expect(mcp.mcpServers['agent-browser'].args).toEqual(['-y', 'agent-browser-mcp']);
+    expect(mcp.mcpServers['agent-browser'].args).toEqual(['-y', 'agent-browser-mcp-codex']);
     expect(marketplace.plugins[0].name).toBe('agent-browser');
   });
 
@@ -58,7 +58,7 @@ describe('initCodex', () => {
   });
 
   it('prints next steps that tell the user to restart Codex or start a new session', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
 
     await initCodex({
       homeDir: home,
@@ -71,7 +71,7 @@ describe('initCodex', () => {
   });
 
   it('fails safely when an existing marketplace file has a malformed shape', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
     const marketplacePath = join(home, '.agents/plugins/marketplace.json');
 
     mkdirSync(join(home, '.agents/plugins'), { recursive: true });
@@ -102,7 +102,7 @@ describe('initCodex', () => {
   });
 
   it('preserves unrelated marketplace entries when rerun', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
     const marketplacePath = join(home, '.agents/plugins/marketplace.json');
 
     mkdirSync(join(home, '.agents/plugins'), { recursive: true });
@@ -146,7 +146,7 @@ describe('initCodex', () => {
   });
 
   it('fails safely when an existing marketplace file cannot be parsed', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
     const marketplacePath = join(home, '.agents/plugins/marketplace.json');
 
     mkdirSync(join(home, '.agents/plugins'), { recursive: true });
@@ -163,7 +163,7 @@ describe('initCodex', () => {
   });
 
   it('fails safely when an existing marketplace file has an unusable shape', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
     const marketplacePath = join(home, '.agents/plugins/marketplace.json');
 
     mkdirSync(join(home, '.agents/plugins'), { recursive: true });
@@ -192,7 +192,7 @@ describe('initCodex', () => {
   });
 
   it('fails when agent-browser is absent', async () => {
-    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-'));
+    const home = mkdtempSync(join(tmpdir(), 'agent-browser-mcp-codex-'));
 
     await expect(
       initCodex({

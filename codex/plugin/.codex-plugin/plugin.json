@@ -7,7 +7,7 @@
     "email": "opensource@example.com",
     "url": "https://github.com/zhaodongsheng"
   },
-  "homepage": "https://github.com/zhaodongsheng/agent-browser-mcp",
+  "homepage": "https://github.com/Blackman99/agent-browser-mcp",
   "license": "MIT",
   "mcpServers": "./.mcp.json",
   "interface": {
@@ -20,9 +20,9 @@
       "Interactive",
       "Write"
     ],
-    "websiteURL": "https://github.com/zhaodongsheng/agent-browser-mcp",
-    "privacyPolicyURL": "https://github.com/zhaodongsheng/agent-browser-mcp",
-    "termsOfServiceURL": "https://github.com/zhaodongsheng/agent-browser-mcp",
+    "websiteURL": "https://github.com/Blackman99/agent-browser-mcp",
+    "privacyPolicyURL": "https://github.com/Blackman99/agent-browser-mcp",
+    "termsOfServiceURL": "https://github.com/Blackman99/agent-browser-mcp",
     "defaultPrompt": [
       "Open a page and read its title",
       "Inspect a page and extract text",

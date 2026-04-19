@@ -13,7 +13,7 @@ const getSection = (heading: string) => {
 
 describe('README', () => {
   it('uses the required title and description pair', () => {
-    expect(readme).toContain('# agent-browser-mcp');
+    expect(readme).toContain('# agent-browser-mcp-codex');
     expect(readme).toContain(
       'Expose local [`agent-browser`](https://github.com/vercel-labs/agent-browser) capabilities as MCP tools and bootstrap Codex integration quickly.',
     );
@@ -38,7 +38,7 @@ describe('README', () => {
   it('includes the Codex bootstrap command and restart guidance', () => {
     const quickStartSection = getSection('## Quick Start for Codex');
 
-    expect(quickStartSection).toContain('npx agent-browser-mcp init-codex');
+    expect(quickStartSection).toContain('npx agent-browser-mcp-codex init-codex');
     expect(quickStartSection).toContain('Restart Codex or open a new session');
   });
 
