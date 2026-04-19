@@ -4,3 +4,4 @@ dist
 coverage
 *.log
 tmp
+docs/superpowers/plans/
