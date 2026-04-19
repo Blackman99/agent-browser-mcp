@@ -83,6 +83,14 @@ describe('package metadata', () => {
     expect(vitestConfig).toContain('clearMocks: true');
   });
 
+  it('commits an npm lockfile for cacheable CI installs', () => {
+    const lockfile = JSON.parse(readText('package-lock.json'));
+
+    expect(lockfile.name).toBe('agent-browser-mcp-codex');
+    expect(lockfile.version).toBe('0.1.0');
+    expect(lockfile.lockfileVersion).toBeGreaterThanOrEqual(2);
+  });
+
   it('matches the Task 1 gitignore entries', () => {
     const gitignore = readText('.gitignore')
       .split(/\r?\n/)
