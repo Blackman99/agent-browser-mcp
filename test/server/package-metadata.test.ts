@@ -87,7 +87,7 @@ describe('package metadata', () => {
     const lockfile = JSON.parse(readText('package-lock.json'));
 
     expect(lockfile.name).toBe('agent-browser-mcp-codex');
-    expect(lockfile.version).toBe('0.1.0');
+    expect(lockfile.version).toBe('0.1.1');
     expect(lockfile.lockfileVersion).toBeGreaterThanOrEqual(2);
   });
 

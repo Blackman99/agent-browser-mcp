@@ -1,7 +1,7 @@
 export function renderPluginJson() {
   return {
     name: 'agent-browser',
-    version: '0.1.0',
+    version: '0.1.1',
     description: 'Expose agent-browser as Codex MCP tools.',
     author: {
       name: 'zhaodongsheng',
