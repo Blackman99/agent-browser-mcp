@@ -15,7 +15,7 @@ describe('README', () => {
   it('uses the required title and description pair', () => {
     expect(readme).toContain('# agent-browser-mcp');
     expect(readme).toContain(
-      'Expose local `agent-browser` capabilities as MCP tools and bootstrap Codex integration quickly.',
+      'Expose local [`agent-browser`](https://github.com/vercel-labs/agent-browser) capabilities as MCP tools and bootstrap Codex integration quickly.',
     );
   });
 
@@ -41,9 +41,11 @@ describe('README', () => {
   });
 
   it('locks down the approved README wording and scope', () => {
-    expect(readme).toContain('Prerequisite: `agent-browser` must already be installed locally.');
     expect(readme).toContain(
-      'This package currently exposes a focused subset of `agent-browser` commands:',
+      'Prerequisite: [`agent-browser`](https://github.com/vercel-labs/agent-browser) must already be installed locally.',
+    );
+    expect(readme).toContain(
+      'This package currently exposes a focused subset of [`agent-browser`](https://github.com/vercel-labs/agent-browser) commands:',
     );
     expect(readme).toContain('- Navigation: `open`, `back`, `forward`, `reload`');
     expect(readme).toContain('- Interaction: `click`, `fill`, `type`');
@@ -64,7 +66,7 @@ describe('README', () => {
 
     const limitationsSection = getSection('## Limitations');
     expect(limitationsSection).toContain(
-      'This package currently exposes a subset of the upstream `agent-browser` CLI, not the full surface.',
+      'This package currently exposes a subset of the upstream [`agent-browser`](https://github.com/vercel-labs/agent-browser) CLI, not the full surface.',
     );
     expect(limitationsSection).toContain('Some tool families are intentionally narrow right now.');
     expect(limitationsSection).toContain(

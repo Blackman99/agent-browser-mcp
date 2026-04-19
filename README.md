@@ -1,17 +1,17 @@
 # agent-browser-mcp
 
-Expose local `agent-browser` capabilities as MCP tools and bootstrap Codex integration quickly.
+Expose local [`agent-browser`](https://github.com/vercel-labs/agent-browser) capabilities as MCP tools and bootstrap Codex integration quickly.
 
 ## Quick Start for Codex
 
-Prerequisite: `agent-browser` must already be installed locally.
+Prerequisite: [`agent-browser`](https://github.com/vercel-labs/agent-browser) must already be installed locally.
 
 1. Run `npx agent-browser-mcp init-codex`
 2. Restart Codex or open a new session
 
 ## What You Get
 
-This package currently exposes a focused subset of `agent-browser` commands:
+This package currently exposes a focused subset of [`agent-browser`](https://github.com/vercel-labs/agent-browser) commands:
 
 - Navigation: `open`, `back`, `forward`, `reload`
 - Interaction: `click`, `fill`, `type`
@@ -27,7 +27,7 @@ If you want to wire the plugin in manually, the local Codex templates live under
 
 ## Limitations
 
-- This package currently exposes a subset of the upstream `agent-browser` CLI, not the full surface.
+- This package currently exposes a subset of the upstream [`agent-browser`](https://github.com/vercel-labs/agent-browser) CLI, not the full surface.
 - Some tool families are intentionally narrow right now.
 - Broader coverage may be added over time, but the current surface should be treated as evolving.
 
